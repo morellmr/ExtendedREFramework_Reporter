@@ -6,7 +6,7 @@
     <x:Property Name="io_dtDetails" Type="InOutArgument(sd:DataTable)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1156,1767</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1006,1920</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -121,7 +121,7 @@
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Assign data for each queue item, store in datatables" DisplayName="Get Data for each queue item" sap:VirtualizedContainerService.HintSize="635,1702" sap2010:WorkflowViewState.IdRef="Sequence_21">
+  <Sequence sap2010:Annotation.AnnotationText="Assign data for each queue item, store in datatables" DisplayName="Get Data for each queue item" sap:VirtualizedContainerService.HintSize="635,1855" sap2010:WorkflowViewState.IdRef="Sequence_21">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="idx" />
     </Sequence.Variables>
@@ -132,13 +132,13 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ForEach x:TypeArguments="ui:QueueItem" CurrentIndex="[idx]" DisplayName="For Each Q Item" sap:VirtualizedContainerService.HintSize="573,1560" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[io_TransactionItem]">
+    <ui:ForEach x:TypeArguments="ui:QueueItem" CurrentIndex="[idx]" DisplayName="For Each Q Item" sap:VirtualizedContainerService.HintSize="573,1713" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[io_TransactionItem]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="ui:QueueItem">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:QueueItem" Name="qitem" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="539,1374" sap2010:WorkflowViewState.IdRef="Sequence_22">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="539,1527" sap2010:WorkflowViewState.IdRef="Sequence_22">
             <Sequence.Variables>
               <Variable x:TypeArguments="sd:DataRow" Name="rowDetails" />
               <Variable x:TypeArguments="s:Nullable(s:DateTime)" Name="startTime" />
@@ -189,7 +189,7 @@
                   </InArgument>
                 </Assign.Value>
               </Assign>
-              <Sequence x:Key="Failed" sap:VirtualizedContainerService.HintSize="596,681" sap2010:WorkflowViewState.IdRef="Sequence_23">
+              <Sequence x:Key="Failed" sap:VirtualizedContainerService.HintSize="596,679" sap2010:WorkflowViewState.IdRef="Sequence_23">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="s:String[]" Name="detailsSplit" />
                   <Variable x:TypeArguments="sd:DataRow" Name="rowSummaryBusiness" />
@@ -208,14 +208,14 @@
                     <InArgument x:TypeArguments="x:String">[qitem.ProcessingException.Details]</InArgument>
                   </Assign.Value>
                 </Assign>
-                <TryCatch sap2010:Annotation.AnnotationText="In Processing Exception Details, everything after the first &quot;!#&quot; is metadata that does not need to be printed in the report" DisplayName="Try Remove Everything after !#" sap:VirtualizedContainerService.HintSize="534,226" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                <TryCatch sap2010:Annotation.AnnotationText="In Processing Exception Details, everything after the first &quot;!#&quot; is metadata that does not need to be printed in the report" DisplayName="Try Remove Everything after !#" sap:VirtualizedContainerService.HintSize="534,583" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <TryCatch.Try>
-                    <Sequence sap:VirtualizedContainerService.HintSize="496,313" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                    <Sequence sap:VirtualizedContainerService.HintSize="496,315" sap2010:WorkflowViewState.IdRef="Sequence_24">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -240,7 +240,7 @@
                     </Sequence>
                   </TryCatch.Try>
                   <TryCatch.Catches>
-                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="500,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -251,7 +251,7 @@
                         <ActivityAction.Argument>
                           <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                         </ActivityAction.Argument>
-                        <Assign DisplayName="Assign Details" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_15">
+                        <Assign DisplayName="Assign Details" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_15">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[itemdetails]</OutArgument>
                           </Assign.To>
@@ -409,15 +409,14 @@
             </ui:MultipleAssign>
             <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Reporting\AdditionalQueueItemData.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="497,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Reporting\AdditionalQueueItemData.xaml">
               <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-                  <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
-                </InArgument>
-                <InOutArgument x:TypeArguments="sd:DataRow" x:Key="io_DataRow">
-                  <VisualBasicReference x:TypeArguments="sd:DataRow" ExpressionText="rowDetails" />
-                </InOutArgument>
-                <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_QueueItem">
-                  <VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="qitem" />
-                </InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                <InOutArgument x:TypeArguments="sd:DataRow" x:Key="io_DataRow">[rowDetails]</InOutArgument>
+                <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_QueueItem">[qitem]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Reporting\AnalyticsKPIs.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="497,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Reporting\AnalyticsKPIs.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <scg:Dictionary x:TypeArguments="x:String, Argument" />
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
             <ui:AddDataRow ArrayRow="{x:Null}" DataRow="[rowDetails]" DataTable="[io_dtDetails]" DisplayName="Add Data Row Details" sap:VirtualizedContainerService.HintSize="497,186" sap2010:WorkflowViewState.IdRef="AddDataRow_6" />

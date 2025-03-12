@@ -98,6 +98,13 @@
         "testCaseType": "TestCase",
         "executionTemplateType": "Local",
         "fileName": "Tests\\WorkflowTestCaseTemplate.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "2a00ceff-5c2f-4486-9cf5-30c283f420cb",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\ValidateConfigTestCase.xaml"
       }
     ],
     "modernBehavior": true,
