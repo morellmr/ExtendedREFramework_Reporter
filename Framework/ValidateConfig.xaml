@@ -5,7 +5,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1006,2372</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1006,1183</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>VerifyConfig_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -116,27 +116,27 @@
       <AssemblyReference>System.Private.Xml</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ValidateConfig" sap:VirtualizedContainerService.HintSize="672,2267" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ValidateConfig" sap:VirtualizedContainerService.HintSize="650,1078" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Analytics validations" sap:VirtualizedContainerService.HintSize="610,2156" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence DisplayName="Analytics validations" sap:VirtualizedContainerService.HintSize="588,967" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <If Condition="[CBool(in_Config(&quot;UseAnalytics&quot;))]" DisplayName="If - Analytics" sap:VirtualizedContainerService.HintSize="548,2045" sap2010:WorkflowViewState.IdRef="If_1">
+      <If Condition="[CBool(in_Config(&quot;UseAnalytics&quot;))]" DisplayName="If - Analytics" sap:VirtualizedContainerService.HintSize="526,856" sap2010:WorkflowViewState.IdRef="If_1">
         <If.Then>
-          <Sequence sap:VirtualizedContainerService.HintSize="514,1634" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence sap:VirtualizedContainerService.HintSize="492,445" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <If Condition="[Not CBool(in_Config(&quot;UseDB&quot;))]" DisplayName="If - Validate UseDB" sap:VirtualizedContainerService.HintSize="472,52" sap2010:WorkflowViewState.IdRef="If_2">
+            <If Condition="[Not CBool(in_Config(&quot;UseDB&quot;))]" DisplayName="If - Validate UseDB" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="If_2">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -158,10 +158,10 @@
                 <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6" />
               </If.Else>
             </If>
-            <If Condition="[Not (CType(in_Config(&quot;DBConnection&quot;), UiPath.Database.DatabaseConnection).State = ConnectionState.Open).Value]" DisplayName="If - Database Connection" sap:VirtualizedContainerService.HintSize="472,541" sap2010:WorkflowViewState.IdRef="If_3">
+            <If Condition="[Not (CType(in_Config(&quot;DBConnection&quot;), UiPath.Database.DatabaseConnection).State = ConnectionState.Open).Value]" DisplayName="If - Database Connection" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="If_3">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
@@ -186,17 +186,18 @@
               </Sequence.Variables>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[QueryResults]" DisplayName="Run query" ExistingDbConnection="[CType(in_Config(&quot;DBConnection&quot;), UiPath.Database.DatabaseConnection)]" sap:VirtualizedContainerService.HintSize="410,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName">
+              <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[QueryResults]" DisplayName="Run query - Find Table" ExistingDbConnection="[CType(in_Config(&quot;DBConnection&quot;), UiPath.Database.DatabaseConnection)]" sap:VirtualizedContainerService.HintSize="410,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName">
                 <ui:ExecuteQuery.Parameters>
                   <InArgument x:TypeArguments="x:String" x:Key="tableName">
                     <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;AnalyticsTable&quot;).ToString.Split(&quot;.&quot;c).Last" />
                   </InArgument>
                 </ui:ExecuteQuery.Parameters>
               </ui:ExecuteQuery>
-              <If Condition="[QueryResults.RowCount = 0]" sap:VirtualizedContainerService.HintSize="410,541" sap2010:WorkflowViewState.IdRef="If_6">
+              <If Condition="[QueryResults.RowCount = 0]" DisplayName="If - No Table" sap:VirtualizedContainerService.HintSize="410,541" sap2010:WorkflowViewState.IdRef="If_6">
                 <If.Then>
                   <Sequence sap:VirtualizedContainerService.HintSize="376,359" sap2010:WorkflowViewState.IdRef="Sequence_15">
                     <sap:WorkflowViewStateService.ViewState>
@@ -213,7 +214,7 @@
                 </If.Else>
               </If>
             </Sequence>
-            <If Condition="[CBool(in_Config(&quot;JobVerification&quot;))]" DisplayName="If - Check Jobs" sap:VirtualizedContainerService.HintSize="472,52" sap2010:WorkflowViewState.IdRef="If_5">
+            <If Condition="[CBool(in_Config(&quot;JobVerification&quot;))]" DisplayName="If - Check Jobs" sap:VirtualizedContainerService.HintSize="450,52" sap2010:WorkflowViewState.IdRef="If_5">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
