@@ -82,6 +82,7 @@
       <Variable x:TypeArguments="x:Int32" Name="NumSuccessful" />
       <Variable x:TypeArguments="x:Int32" Name="NumFailedRobot" />
       <Variable x:TypeArguments="x:Int32" Name="NumFailedBusiness" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Config" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -89,9 +90,6 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <Sequence DisplayName="... Given" sap:VirtualizedContainerService.HintSize="450,377" sap2010:WorkflowViewState.IdRef="Sequence_2">
-      <Sequence.Variables>
-        <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Config" />
-      </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -99,28 +97,16 @@
       </sap:WorkflowViewStateService.ViewState>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap:VirtualizedContainerService.HintSize="388,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">
-            <Literal x:TypeArguments="x:String">Data/Config.xlsx</Literal>
-          </InArgument>
-          <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">
-            <VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{&quot;Settings&quot;, &quot;Constants&quot;}" />
-          </InArgument>
-          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">
-            <VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-          </OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">Data/Config.xlsx</InArgument>
+          <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">[{"Settings", "Constants"}]</InArgument>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">[Config]</OutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Framework\GetTransactionData.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="388,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Framework\GetTransactionData.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">
-            <Literal x:TypeArguments="x:Int32" Value="1" />
-          </InArgument>
-          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-            <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-          </InArgument>
-          <OutArgument x:TypeArguments="scg:List(ui:QueueItem)" x:Key="out_TransactionItem">
-            <VisualBasicReference x:TypeArguments="scg:List(ui:QueueItem)" ExpressionText="ListTransactionItem" />
-          </OutArgument>
+          <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber">1</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
+          <OutArgument x:TypeArguments="scg:List(ui:QueueItem)" x:Key="out_TransactionItem">[ListTransactionItem]</OutArgument>
           <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField1" />
           <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField2" />
           <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionID" />
@@ -138,6 +124,9 @@
         <ui:InvokeWorkflowFile.Arguments>
           <InArgument x:TypeArguments="scg:List(ui:QueueItem)" x:Key="in_TransactionItemList">
             <VisualBasicValue x:TypeArguments="scg:List(ui:QueueItem)" ExpressionText="ListTransactionItem" />
+          </InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+            <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
           </InArgument>
           <OutArgument x:TypeArguments="x:Int32" x:Key="out_NumSuccessful">
             <VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="NumSuccessful" />

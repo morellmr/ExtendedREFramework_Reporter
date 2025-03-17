@@ -1,6 +1,7 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="AnalyticsKPIs" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_TransactionItemList" Type="InArgument(scg:List(ui:QueueItem))" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="out_NumSuccessful" Type="OutArgument(x:Int32)" />
     <x:Property Name="out_NumFailedRobot" Type="OutArgument(x:Int32)" />
     <x:Property Name="out_NumFailedBusiness" Type="OutArgument(x:Int32)" />
@@ -8,7 +9,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1006,1668</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1006,1228</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>AnalyticsKPIs_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -38,6 +39,7 @@
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>System.Reflection</x:String>
       <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -86,15 +88,18 @@
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="AnalyticsSuccessfulFailed" sap:VirtualizedContainerService.HintSize="688,1603" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="AnalyticsSuccessfulFailed" sap:VirtualizedContainerService.HintSize="635,1163" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MultipleAssign DisplayName="Multiple Assign - Initialize output" sap:VirtualizedContainerService.HintSize="626,178" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:MultipleAssign DisplayName="Multiple Assign - Initialize output" sap:VirtualizedContainerService.HintSize="573,178" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -124,20 +129,20 @@
         </scg:List>
       </ui:MultipleAssign.AssignOperations>
     </ui:MultipleAssign>
-    <ui:Comment sap:VirtualizedContainerService.HintSize="626,190" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Edit as needed. Implement the logic to determine whether each transaction should be counted as Successful, Failed, or not counted at all.&#xA;&#xA;You may peform checks on the Transaction SpecificContent, Database queries, or other actions. " />
-    <ui:ForEach x:TypeArguments="ui:QueueItem" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Default behavior. For each transaction, counts one Successful if the item ended as Successful, and one Failed if the item ended as Failed, discriminating by exception type." DisplayName="For Each Transaction" sap:VirtualizedContainerService.HintSize="626,1044" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_TransactionItemList]">
+    <ui:Comment sap:VirtualizedContainerService.HintSize="573,190" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Edit as needed. Implement the logic to determine whether each transaction should be counted as Successful, Failed, or not counted at all.&#xA;&#xA;You may peform checks on the Transaction SpecificContent, Database queries, or other actions. " />
+    <ui:ForEach x:TypeArguments="ui:QueueItem" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Default behavior. For each transaction, counts one Successful if the item ended as Successful, and one Failed if the item ended as Failed, discriminating by exception type." DisplayName="For Each Transaction" sap:VirtualizedContainerService.HintSize="573,604" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_TransactionItemList]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="ui:QueueItem">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:QueueItem" Name="TransactionItem" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="592,816" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="539,376" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Switch x:TypeArguments="ui:QueueItemStatus" DisplayName="Switch - Transaction Status" Expression="[TransactionItem.Status]" sap:VirtualizedContainerService.HintSize="550,728" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+            <Switch x:TypeArguments="ui:QueueItemStatus" DisplayName="Switch - Transaction Status" Expression="[TransactionItem.Status]" sap:VirtualizedContainerService.HintSize="497,288" sap2010:WorkflowViewState.IdRef="Switch`1_1">
               <Switch.Default>
                 <ui:Comment sap:VirtualizedContainerService.HintSize="334,75" sap2010:WorkflowViewState.IdRef="Comment_2" Text="// Ignore transactions that are not Successful nor Failed" />
               </Switch.Default>
