@@ -154,11 +154,7 @@
             <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="492,544" sap2010:WorkflowViewState.IdRef="Sequence_3">
               <Sequence.Variables>
                 <Variable x:TypeArguments="scg:IEnumerable(ui:OrchestratorJob)" Name="ListJobs" />
-                <Variable x:TypeArguments="x:Int32" Name="NumJobs">
-                  <Variable.Default>
-                    <Literal x:TypeArguments="x:Int32" />
-                  </Variable.Default>
-                </Variable>
+                <Variable x:TypeArguments="x:Int32" Default="0" Name="NumJobs" />
               </Sequence.Variables>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -214,7 +210,7 @@
                             <OutArgument x:TypeArguments="x:Int32">[out_ProcessDuration]</OutArgument>
                           </Assign.To>
                           <Assign.Value>
-                            <InArgument x:TypeArguments="x:Int32">[out_ProcessDuration + CType(DateDiff(DateInterval.Second, CDate(in_Config("LastReportingTime")), CurrentJob.EndTime.Value), Int32)]</InArgument>
+                            <InArgument x:TypeArguments="x:Int32">[out_ProcessDuration + CType(DateDiff(DateInterval.Second, CDate(in_Config("LastReportingTime")).ToUniversalTime, CurrentJob.EndTime.Value), Int32)]</InArgument>
                           </Assign.Value>
                         </Assign>
                       </Sequence>
@@ -278,7 +274,7 @@
   CurrentJob.EndTime.Value,
   If(
     in_Config.ContainsKey("NewLastReportingTime"),
-    CDate(in_Config("NewLastReportingTime")),
+    CDate(in_Config("NewLastReportingTime")).ToUniversalTime,
     Now
   )
 )]</InArgument>
