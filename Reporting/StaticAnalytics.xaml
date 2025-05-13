@@ -161,7 +161,7 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Sequence sap2010:Annotation.AnnotationText="Calculates timings for jobs that might have been running at the time the last Reporting job was ran" DisplayName="Previously on-going jobs" sap:VirtualizedContainerService.HintSize="450,123" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence sap2010:Annotation.AnnotationText="Calculates timings for jobs that might have been running at the time the last Reporting job was ran" DisplayName="Previously on-going jobs" sap:VirtualizedContainerService.HintSize="634,1849" sap2010:WorkflowViewState.IdRef="Sequence_5">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -169,54 +169,134 @@
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:GetJobs Filter="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" Top="{x:Null}" DisplayName="Get Jobs - Previous Jobs" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="510,143" sap2010:WorkflowViewState.IdRef="GetJobs_2" Result="[ListJobs]">
-                  <ui:GetJobs.FilterBuilder>
-                    <uasj:JobFilterSettings Index="0" LogicalOperator="And">
-                      <uasj:JobFilterSettings.Filters>
-                        <scg:List x:TypeArguments="uasj:JobFilterElement" Capacity="4">
-                          <uasj:JobFilterElement GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="StartTime" DateOperator="OlderThan" DateValue="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing).ToUniversalTime]" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
-                          <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" Criteria="ReleaseName" DateOperator="NewerThan" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" StringValue="[CurrentJobTitle]" />
-                          <uasj:JobFilterElement GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="EndTime" DateOperator="NewerThan" DateValue="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing).ToUniversalTime]" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
-                        </scg:List>
-                      </uasj:JobFilterSettings.Filters>
-                      <uasj:JobFilterSettings.Groups>
-                        <scg:List x:TypeArguments="uasj:JobFilterSettings" Capacity="0" />
-                      </uasj:JobFilterSettings.Groups>
-                    </uasj:JobFilterSettings>
-                  </ui:GetJobs.FilterBuilder>
-                </ui:GetJobs>
-                <Assign DisplayName="Assign - NumJobs Previous" sap:VirtualizedContainerService.HintSize="510,82" sap2010:WorkflowViewState.IdRef="Assign_8">
-                  <Assign.To>
-                    <OutArgument x:TypeArguments="x:Int32">[NumJobs]</OutArgument>
-                  </Assign.To>
-                  <Assign.Value>
-                    <InArgument x:TypeArguments="x:Int32">[NumJobs + ListJobs.Count]</InArgument>
-                  </Assign.Value>
-                </Assign>
-                <ui:ForEach x:TypeArguments="ui:OrchestratorJob" CurrentIndex="{x:Null}" DisplayName="For Each - Previous Job" sap:VirtualizedContainerService.HintSize="510,356" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[ListJobs]">
-                  <ui:ForEach.Body>
-                    <ActivityAction x:TypeArguments="ui:OrchestratorJob">
-                      <ActivityAction.Argument>
-                        <DelegateInArgument x:TypeArguments="ui:OrchestratorJob" Name="CurrentJob" />
-                      </ActivityAction.Argument>
-                      <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,170" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign - Previous Job Duration" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_6">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="x:Int32">[out_ProcessDuration]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="x:Int32">[out_ProcessDuration + CType(DateDiff(DateInterval.Second, CDate(in_Config("LastReportingTime")).ToUniversalTime, CurrentJob.EndTime.Value), Int32)]</InArgument>
-                          </Assign.Value>
-                        </Assign>
-                      </Sequence>
-                    </ActivityAction>
-                  </ui:ForEach.Body>
-                </ui:ForEach>
+                <Sequence DisplayName="Previous Finished Jobs" sap:VirtualizedContainerService.HintSize="572,772" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetJobs Filter="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" Top="{x:Null}" DisplayName="Get Jobs - Previous Jobs" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="510,143" sap2010:WorkflowViewState.IdRef="GetJobs_2" Result="[ListJobs]">
+                    <ui:GetJobs.FilterBuilder>
+                      <uasj:JobFilterSettings Index="0" LogicalOperator="And">
+                        <uasj:JobFilterSettings.Filters>
+                          <scg:List x:TypeArguments="uasj:JobFilterElement" Capacity="4">
+                            <uasj:JobFilterElement GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="StartTime" DateOperator="OlderThan" DateValue="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing).ToUniversalTime]" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
+                            <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" Criteria="ReleaseName" DateOperator="NewerThan" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" StringValue="[CurrentJobTitle]" />
+                            <uasj:JobFilterElement GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="EndTime" DateOperator="NewerThan" DateValue="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing).ToUniversalTime]" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
+                          </scg:List>
+                        </uasj:JobFilterSettings.Filters>
+                        <uasj:JobFilterSettings.Groups>
+                          <scg:List x:TypeArguments="uasj:JobFilterSettings" Capacity="0" />
+                        </uasj:JobFilterSettings.Groups>
+                      </uasj:JobFilterSettings>
+                    </ui:GetJobs.FilterBuilder>
+                  </ui:GetJobs>
+                  <Assign DisplayName="Assign - NumJobs Previous" sap:VirtualizedContainerService.HintSize="510,82" sap2010:WorkflowViewState.IdRef="Assign_8">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[NumJobs]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[NumJobs + ListJobs.Count]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:ForEach x:TypeArguments="ui:OrchestratorJob" CurrentIndex="{x:Null}" DisplayName="For Each - Previous Job" sap:VirtualizedContainerService.HintSize="510,356" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[ListJobs]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="ui:OrchestratorJob">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="ui:OrchestratorJob" Name="CurrentJob" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,170" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign DisplayName="Assign - Previous Job Duration" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_6">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[out_ProcessDuration]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">[out_ProcessDuration + CType(DateDiff(DateInterval.Second, CDate(in_Config("LastReportingTime")).ToUniversalTime, CurrentJob.EndTime.Value), Int32)]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                  </ui:ForEach>
+                </Sequence>
+                <Sequence DisplayName="Previous Still Ongoing Jobs" sap:VirtualizedContainerService.HintSize="572,895" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:GetJobs Filter="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" Top="{x:Null}" DisplayName="Get Jobs - Previous Sill Ongoing Jobs" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="510,143" sap2010:WorkflowViewState.IdRef="GetJobs_3" Result="[ListJobs]">
+                    <ui:GetJobs.FilterBuilder>
+                      <uasj:JobFilterSettings Index="0" LogicalOperator="And">
+                        <uasj:JobFilterSettings.Filters>
+                          <scg:List x:TypeArguments="uasj:JobFilterElement" Capacity="8">
+                            <uasj:JobFilterElement GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="StartTime" DateOperator="OlderThan" DateValue="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing).ToUniversalTime]" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
+                            <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" Criteria="ReleaseName" DateOperator="NewerThan" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" StringValue="[CurrentJobTitle]" />
+                            <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="State" DateOperator="NewerThan" EnumOperator="NotEquals" GuidOperator="Equals" PriorityValue="Low" StateValue="Faulted" StringOperator="Equals" />
+                            <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="State" DateOperator="NewerThan" EnumOperator="NotEquals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
+                            <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="State" DateOperator="NewerThan" EnumOperator="NotEquals" GuidOperator="Equals" PriorityValue="Low" StateValue="Stopped" StringOperator="Equals" />
+                            <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="State" DateOperator="NewerThan" EnumOperator="NotEquals" GuidOperator="Equals" PriorityValue="Low" StateValue="Successful" StringOperator="Equals" />
+                          </scg:List>
+                        </uasj:JobFilterSettings.Filters>
+                        <uasj:JobFilterSettings.Groups>
+                          <scg:List x:TypeArguments="uasj:JobFilterSettings" Capacity="0" />
+                        </uasj:JobFilterSettings.Groups>
+                      </uasj:JobFilterSettings>
+                    </ui:GetJobs.FilterBuilder>
+                  </ui:GetJobs>
+                  <Assign DisplayName="Assign - NumJobs Previous" sap:VirtualizedContainerService.HintSize="510,82" sap2010:WorkflowViewState.IdRef="Assign_10">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[NumJobs]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[NumJobs + ListJobs.Count]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:ForEach x:TypeArguments="ui:OrchestratorJob" CurrentIndex="{x:Null}" DisplayName="For Each - Previous Still Ongoing Job" sap:VirtualizedContainerService.HintSize="510,479" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[ListJobs]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="ui:OrchestratorJob">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="ui:OrchestratorJob" Name="CurrentJob" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,293" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="s:DateTime" Name="JobEndTime" />
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign DisplayName="Assign - Previous Still Ongoing Job End Time" sap:VirtualizedContainerService.HintSize="434,83" sap2010:WorkflowViewState.IdRef="Assign_11">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="s:DateTime">[JobEndTime]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="s:DateTime" xml:space="preserve">[If(
+  in_Config.ContainsKey("NewLastReportingTime"),
+  CDate(in_Config("NewLastReportingTime")).ToUniversalTime,
+  Now
+)]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <Assign DisplayName="Assign - Previous Still Ongoing Job Duration" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_12">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[out_ProcessDuration]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">[out_ProcessDuration + CType(DateDiff(DateInterval.Second, CDate(in_Config("LastReportingTime")).ToUniversalTime, JobEndTime), Int32)]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                  </ui:ForEach>
+                </Sequence>
               </Sequence>
               <Sequence sap2010:Annotation.AnnotationText="Calculates timings for jobs that started after the last Reporting job was ran" DisplayName="New Jobs" sap:VirtualizedContainerService.HintSize="450,112" sap2010:WorkflowViewState.IdRef="Sequence_6">
                 <sap:WorkflowViewStateService.ViewState>
