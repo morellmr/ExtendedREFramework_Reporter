@@ -122,6 +122,16 @@
     <Sequence DisplayName="Duration" sap:VirtualizedContainerService.HintSize="648,1956" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="s:String[]" Name="JobTitles" />
+        <Variable x:TypeArguments="s:DateTime" Name="LastReportingTime">
+          <Variable.Default>
+            <VisualBasicValue x:TypeArguments="s:DateTime" ExpressionText="CDate(in_Config(&quot;LastReportingTime&quot;)).ToUniversalTime" />
+          </Variable.Default>
+        </Variable>
+        <Variable x:TypeArguments="s:DateTime" Name="NewLastReportingTime">
+          <Variable.Default>
+            <VisualBasicValue x:TypeArguments="s:DateTime" ExpressionText="CDate(in_Config(&quot;NewLastReportingTime&quot;)).ToUniversalTime" />
+          </Variable.Default>
+        </Variable>
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -161,7 +171,7 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:GetJobs FilterBuilder="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" Top="{x:Null}" DisplayName="Get Jobs - Analytics Jobs" Filter="[String.Format(&#xD;&#xA;&quot;(ReleaseName eq '{0}') and (StartTime ne null) and (EndTime gt {1} or EndTime eq null)&quot;, &#xD;&#xA;CurrentJobTitle, &#xD;&#xA;CDate(in_Config(&quot;LastReportingTime&quot;)).ToUniversalTime.ToString(&quot;o&quot;)&#xD;&#xA;)]" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="510,143" sap2010:WorkflowViewState.IdRef="GetJobs_4" Result="[ListJobs]" />
+              <ui:GetJobs FilterBuilder="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" Top="{x:Null}" DisplayName="Get Jobs - Analytics Jobs" Filter="[String.Format(&#xD;&#xA;&quot;(ReleaseName eq '{0}') and (StartTime ne null) and (EndTime gt {1} or EndTime eq null)&quot;, &#xD;&#xA;CurrentJobTitle, &#xD;&#xA;LastReportingTime.ToString(&quot;o&quot;)&#xD;&#xA;)]" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="510,143" sap2010:WorkflowViewState.IdRef="GetJobs_4" Result="[ListJobs]" />
               <ui:LogMessage DisplayName="Log Message - NumJobs" sap:VirtualizedContainerService.HintSize="510,141" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="[UiPath.Core.Activities.LogLevel.Trace]" Message="[String.Format(&quot;{0}: Found {1} job(s)&quot;, CurrentJobTitle, ListJobs.Count)]" />
               <ui:ForEach x:TypeArguments="ui:OrchestratorJob" CurrentIndex="{x:Null}" DisplayName="For Each - Job" sap:VirtualizedContainerService.HintSize="510,782" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[ListJobs]">
                 <ui:ForEach.Body>
@@ -185,7 +195,7 @@
                           <OutArgument x:TypeArguments="s:DateTime">[JobStartTime]</OutArgument>
                         </Assign.To>
                         <Assign.Value>
-                          <InArgument x:TypeArguments="s:DateTime">[{CurrentJob.StartTime.Value, CDate(in_Config("LastReportingTime")).ToUniversalTime}.Max]</InArgument>
+                          <InArgument x:TypeArguments="s:DateTime">[{CurrentJob.StartTime.Value, LastReportingTime}.Max]</InArgument>
                         </Assign.Value>
                       </Assign>
                       <Assign DisplayName="Assign - Job End Time" sap:VirtualizedContainerService.HintSize="434,83" sap2010:WorkflowViewState.IdRef="Assign_14">
@@ -195,8 +205,8 @@
                         <Assign.Value>
                           <InArgument x:TypeArguments="s:DateTime" xml:space="preserve">[If(
 CurrentJob.EndTime.HasValue,
-{CurrentJob.EndTime.Value, CDate(in_Config("NewLastReportingTime")).ToUniversalTime}.Min,
-CDate(in_Config("NewLastReportingTime")).ToUniversalTime
+{CurrentJob.EndTime.Value, NewLastReportingTime}.Min,
+NewLastReportingTime
 )]</InArgument>
                         </Assign.Value>
                       </Assign>
