@@ -1066,10 +1066,10 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                           <Transition.To>
-                            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="End process and close all applications used." DisplayName="End Process" sap:VirtualizedContainerService.HintSize="144,120" sap2010:WorkflowViewState.IdRef="State_1" IsFinal="True">
+                            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="End process and close all applications used." DisplayName="End Process" sap:VirtualizedContainerService.HintSize="688,2826" sap2010:WorkflowViewState.IdRef="State_1" IsFinal="True">
                               <State.Entry>
-                                <NoPersistScope DisplayName="No Persist Scope - Try to close all aplications" sap:VirtualizedContainerService.HintSize="642,2411" sap2010:WorkflowViewState.IdRef="NoPersistScope_4">
-                                  <TryCatch DisplayName="Try to close all aplications" sap:VirtualizedContainerService.HintSize="586,2287" sap2010:WorkflowViewState.IdRef="TryCatch_14">
+                                <NoPersistScope DisplayName="No Persist Scope - Try to close all aplications" sap:VirtualizedContainerService.HintSize="642,2681" sap2010:WorkflowViewState.IdRef="NoPersistScope_4">
+                                  <TryCatch DisplayName="Try to close all aplications" sap:VirtualizedContainerService.HintSize="586,2557" sap2010:WorkflowViewState.IdRef="TryCatch_14">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1119,7 +1119,7 @@
                                       </Catch>
                                     </TryCatch.Catches>
                                     <TryCatch.Finally>
-                                      <Sequence DisplayName="Finish Process" sap:VirtualizedContainerService.HintSize="548,2059" sap2010:WorkflowViewState.IdRef="Sequence_64">
+                                      <Sequence DisplayName="Finish Process" sap:VirtualizedContainerService.HintSize="548,2329" sap2010:WorkflowViewState.IdRef="Sequence_64">
                                         <sap:WorkflowViewStateService.ViewState>
                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1150,9 +1150,9 @@
                                             </Catch>
                                           </TryCatch.Catches>
                                         </TryCatch>
-                                        <If Condition="[SystemException IsNot Nothing AndAlso (Config Is Nothing OrElse Convert.ToBoolean(Config(&quot;ShouldMarkJobAsFaulted&quot;)))]" DisplayName="If SystemException IsNot Nothing" sap:VirtualizedContainerService.HintSize="486,1567" sap2010:WorkflowViewState.IdRef="If_25">
+                                        <If Condition="[SystemException IsNot Nothing AndAlso (Config Is Nothing OrElse Convert.ToBoolean(Config(&quot;ShouldMarkJobAsFaulted&quot;)))]" DisplayName="If SystemException IsNot Nothing" sap:VirtualizedContainerService.HintSize="486,1837" sap2010:WorkflowViewState.IdRef="If_25">
                                           <If.Then>
-                                            <Sequence DisplayName="Mark as Faulted" sap:VirtualizedContainerService.HintSize="452,1385" sap2010:WorkflowViewState.IdRef="Sequence_53">
+                                            <Sequence DisplayName="Mark as Faulted" sap:VirtualizedContainerService.HintSize="452,1655" sap2010:WorkflowViewState.IdRef="Sequence_53">
                                               <Sequence.Variables>
                                                 <Variable x:TypeArguments="x:String" Name="strErrorCode" />
                                                 <Variable x:TypeArguments="x:String" Name="strErrorMessage" />
@@ -1187,8 +1187,22 @@
                                                   <Sequence sap2010:WorkflowViewState.IdRef="Sequence_57" />
                                                 </If.Else>
                                               </If>
-                                              <ui:DatabaseDisconnect DatabaseConnection="[CType(Config(&quot;DBConnection&quot;), databaseconnection)]" DisplayName="Disconnect from database" sap:VirtualizedContainerService.HintSize="334,25" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_2" />
-                                              <TerminateWorkflow DisplayName="Terminate Main Workflow" Exception="[SystemException]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_2" />
+                                              <If Condition="[Config.ContainsKey(&quot;DBConnection&quot;)]" DisplayName="If - Disconnect DB" sap:VirtualizedContainerService.HintSize="410,295" sap2010:WorkflowViewState.IdRef="If_27">
+                                                <If.Then>
+                                                  <Sequence sap:VirtualizedContainerService.HintSize="300,113" sap2010:WorkflowViewState.IdRef="Sequence_65">
+                                                    <sap:WorkflowViewStateService.ViewState>
+                                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      </scg:Dictionary>
+                                                    </sap:WorkflowViewStateService.ViewState>
+                                                    <ui:DatabaseDisconnect DatabaseConnection="[CType(Config(&quot;DBConnection&quot;), databaseconnection)]" DisplayName="Disconnect from DB RPA" sap:VirtualizedContainerService.HintSize="258,25" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_3" />
+                                                  </Sequence>
+                                                </If.Then>
+                                                <If.Else>
+                                                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_66" />
+                                                </If.Else>
+                                              </If>
+                                              <TerminateWorkflow DisplayName="Terminate Main Workflow" Exception="[SystemException]" sap:VirtualizedContainerService.HintSize="410,90" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_2" />
                                             </Sequence>
                                           </If.Then>
                                           <If.Else>
