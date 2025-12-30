@@ -135,6 +135,10 @@
         "testCaseType": "TestCase",
         "executionTemplateInvokeIsolated": false,
         "fileName": "Tests\\GenerateAnalyticsTestCase.xaml"
+      },
+      {
+        "templateType": "Generic",
+        "fileName": ".templates\\File Validation.xaml"
       }
     ],
     "modernBehavior": true,
