@@ -4,9 +4,10 @@
   "description": "Template reporte operativo",
   "main": "Main.xaml",
   "dependencies": {
-    "QueueItemExtensions": "[3.1.2]",
+    "QueueItemExtensions": "[3.1.4]",
     "RPA.002Mail": "[1.1.1]",
     "RPA.008Database": "[1.5.2]",
+    "RPA.Time": "[1.0.0]",
     "UiPath.Database.Activities": "[1.7.1]",
     "UiPath.DataService.Activities": "[23.10.0]",
     "UiPath.Excel.Activities": "[2.24.4]",
@@ -28,7 +29,7 @@
   ],
   "schemaVersion": "4.0",
   "studioVersion": "23.4.1.0",
-  "projectVersion": "2.4.0-alpha",
+  "projectVersion": "2.4.0-alpha.2",
   "runtimeOptions": {
     "autoDispose": false,
     "netFrameworkLazyLoading": false,

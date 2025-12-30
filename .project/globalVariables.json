@@ -1,0 +1,10 @@
+[
+  {
+    "Constant": false,
+    "Name": "Time",
+    "TypeFullyQualifiedName": "RPA.Time.Clock, RPA.Time, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "UnresolvedTypeFullyQualifiedName": null,
+    "Expression": "New RPA.Time.Clock(DateTime.Now)",
+    "IsLiteral": false
+  }
+]

@@ -8,7 +8,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1006,1588</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>996,1588</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>StaticAnalytics_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -40,6 +40,7 @@
       <x:String>UiPath.Activities.System.Jobs</x:String>
       <x:String>UiPath.Core.Activities.Orchestrator</x:String>
       <x:String>System.Runtime.Serialization</x:String>
+      <x:String>RPA.Time</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -90,6 +91,7 @@
       <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
       <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>RPA.Time</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="StaticAnalytics" sap:VirtualizedContainerService.HintSize="710,1523" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -161,6 +163,7 @@
                       <scg:List x:TypeArguments="uasj:JobFilterElement" Capacity="4">
                         <uasj:JobFilterElement GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="CreationTime" DateOperator="NewerThan" DateValue="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing).ToUniversalTime]" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
                         <uasj:JobFilterElement DateValue="{x:Null}" GuidValue="{x:Null}" Criteria="ReleaseName" DateOperator="NewerThan" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" StringValue="[CurrentJobTitle]" />
+                        <uasj:JobFilterElement GuidValue="{x:Null}" StringValue="{x:Null}" Criteria="CreationTime" DateOperator="OlderThan" DateValue="[Time.UtcNow]" EnumOperator="Equals" GuidOperator="Equals" PriorityValue="Low" StateValue="Pending" StringOperator="Equals" />
                       </scg:List>
                     </uasj:JobFilterSettings.Filters>
                     <uasj:JobFilterSettings.Groups>
