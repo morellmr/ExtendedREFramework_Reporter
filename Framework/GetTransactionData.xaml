@@ -11,7 +11,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1176,2687</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>996,2409</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetTransactionData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -59,6 +59,7 @@
       <x:String>UiPath.Web.Activities</x:String>
       <x:String>UiPath.Web</x:String>
       <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>RPA.Time</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -125,9 +126,11 @@
       <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Web</AssemblyReference>
       <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>RPA.Time</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Get a transaction item from a specified source (e.g., Orchestrator queues, spreadsheets, databases, mailboxes or web APIs). &#xA;&#xA;If there are no transaction items remaining, out_TransactionItem is set to Nothing, which leads to the End Process state. &#xA;&#xA;For cases in which there is only a single transaction (i.e., a linear process), use an If activity to check whether the argument in_TransactionNumber has the value 1 (meaning it is the first and only transaction) and assign the transaction item to out_TransactionItem. For any other value of in_TransactionNumber, out_TransactionItem should be set to Nothing.&#xA;&#xA;If there are multiple transactions, use the argument in_TransactionNumber as an index to retrieve the correct transaction to be processed. If there are no more transactions left, it is necessary to set out_TransactionItem to Nothing, thus ending the process." DisplayName="Get Transaction Data" sap:VirtualizedContainerService.HintSize="614,2622" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Get a transaction item from a specified source (e.g., Orchestrator queues, spreadsheets, databases, mailboxes or web APIs). &#xA;&#xA;If there are no transaction items remaining, out_TransactionItem is set to Nothing, which leads to the End Process state. &#xA;&#xA;For cases in which there is only a single transaction (i.e., a linear process), use an If activity to check whether the argument in_TransactionNumber has the value 1 (meaning it is the first and only transaction) and assign the transaction item to out_TransactionItem. For any other value of in_TransactionNumber, out_TransactionItem should be set to Nothing.&#xA;&#xA;If there are multiple transactions, use the argument in_TransactionNumber as an index to retrieve the correct transaction to be processed. If there are no more transactions left, it is necessary to set out_TransactionItem to Nothing, thus ending the process." DisplayName="Get Transaction Data" sap:VirtualizedContainerService.HintSize="614,2344" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -135,18 +138,19 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message Get Transaction Item" sap:VirtualizedContainerService.HintSize="552,141" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Get the transaction item&quot;]" />
-    <ui:RetryScope DisplayName="Retry Get Data" sap:VirtualizedContainerService.HintSize="552,1215" sap2010:WorkflowViewState.IdRef="RetryScope_4">
+    <ui:RetryScope DisplayName="Retry Get Data" sap:VirtualizedContainerService.HintSize="552,937" sap2010:WorkflowViewState.IdRef="RetryScope_4">
       <ui:RetryScope.ActivityBody>
         <ActivityAction>
-          <If Condition="[in_TransactionNumber = 1]" DisplayName="If First Item, Get Data" sap:VirtualizedContainerService.HintSize="510,1040" sap2010:WorkflowViewState.IdRef="If_3">
+          <If Condition="[in_TransactionNumber = 1]" DisplayName="If First Item, Get Data" sap:VirtualizedContainerService.HintSize="510,762" sap2010:WorkflowViewState.IdRef="If_3">
             <If.Then>
-              <Sequence sap:VirtualizedContainerService.HintSize="376,688" sap2010:WorkflowViewState.IdRef="Sequence_11">
+              <Sequence sap:VirtualizedContainerService.HintSize="376,410" sap2010:WorkflowViewState.IdRef="Sequence_11">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <q:Get_All_Queue_Items FilterTo="{x:Null}" FilterTop="{x:Null}" Priorities="{x:Null}" Reference="{x:Null}" Continue_OnError="False" DisplayName="Get All Queue Items Filtered" FilterFrom="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing)]" FilterTimeProcessing="True" sap:VirtualizedContainerService.HintSize="334,600" sap2010:WorkflowViewState.IdRef="Get_All_Queue_Items_1" OrchestratorFolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" QueueItemStates="[{QueueItemStatus.Failed, QueueItemStatus.Successful}]" QueueItems="[out_TransactionItem]" QueueName="[in_Config(&quot;OrchestratorQueueName&quot;).ToString]" />
+                <q:Get_All_Queue_Items FilterTop="{x:Null}" Priorities="{x:Null}" Reference="{x:Null}" Continue_OnError="False" DisplayName="Get All Queue Items Filtered" FilterFrom="[Datetime.ParseExact(in_Config(&quot;LastReportingTime&quot;).ToString, &quot;o&quot;, Nothing)]" FilterTimeProcessing="True" FilterTo="[Time.Now]" sap:VirtualizedContainerService.HintSize="334,141" sap2010:WorkflowViewState.IdRef="Get_All_Queue_Items_1" OrchestratorFolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" QueueItemStates="[{QueueItemStatus.Failed, QueueItemStatus.Successful}]" QueueItems="[out_TransactionItem]" QueueName="[in_Config(&quot;OrchestratorQueueName&quot;).ToString]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,141" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="[UiPath.Core.Activities.LogLevel.Info]" Message="[$&quot;Retrieved {out_TransactionItem.Count} item(s)&quot;]" />
               </Sequence>
             </If.Then>
             <If.Else>

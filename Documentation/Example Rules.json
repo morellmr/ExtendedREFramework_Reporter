@@ -1,0 +1,15 @@
+[
+  {
+    "Match": "exact",
+    "Sheet": "Sheet1",
+    "Cell": "A1",
+    "Value": "Example",
+  },
+  {
+    "Match": "regex",
+    "Sheet": "Sheet1",
+    "Cell": "A2",
+    "Value": "^[Rr]egex [Ee]xample$",
+    "Description": "Matches regex example"
+  }
+]
